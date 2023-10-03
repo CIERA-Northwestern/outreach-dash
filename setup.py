@@ -18,12 +18,11 @@ setuptools.setup(
         'openpyxl',
         'matplotlib',
         'seaborn',
-        'nbconvert',
-        'nbformat',
         'PyYAML',
         'streamlit',
         'pytest',
         'jupyterlab',
         'nbconvert',
+        'nbformat',
    ],
 )
