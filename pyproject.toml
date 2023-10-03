@@ -17,17 +17,17 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    'numpy',
-    'pandas',
-    'openpyxl',
-    'matplotlib',
-    'seaborn',
-    'PyYAML',
-    'streamlit',
-    'pytest',
-    'jupyterlab',
-    'nbconvert',
-    'nbformat',
+    "numpy",
+    "pandas",
+    "openpyxl",
+    "matplotlib",
+    "seaborn",
+    "PyYAML",
+    "streamlit",
+    "pytest",
+    "jupyterlab",
+    "nbconvert",
+    "nbformat",
 ]
 
 [project.urls]
