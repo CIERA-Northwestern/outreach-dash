@@ -11,6 +11,8 @@ from root_dash_lib import utils
 
 
 def load_data(config):
+
+    # adding a comment to test pushing
     '''Modify this!
     
     This is the main function for loading the data
