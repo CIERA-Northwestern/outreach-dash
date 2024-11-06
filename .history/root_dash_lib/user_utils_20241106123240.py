@@ -7,10 +7,12 @@ import glob
 import numpy as np
 import pandas as pd
 
-from outreach_dash_lib import utils
+from root_dash_lib import utils
 
 
 def load_data(config):
+
+    # adding a comment to test pushing
     '''Modify this!
     
     This is the main function for loading the data
@@ -32,6 +34,8 @@ def load_data(config):
     # Filepaths
 
     input_dir = os.path.join(config['data_dir'], config['input_dirname'])
+    print("hi")
+    print(input_dir)
 
     def get_fp_of_most_recent_file(pattern):
         '''Get the filepath of the most-recently created file matching
@@ -141,8 +145,6 @@ def preprocess_data(cleaned_df, config):
 
     preprocessed_df = cleaned_df.copy()
 
-    config['page_title'] = 'Modified Page Title'
-
     # Get the year, according to the config start date
     preprocessed_df['Year'] = utils.get_year(
         preprocessed_df['Date'], config['start_of_year']
@@ -163,5 +165,9 @@ def preprocess_data(cleaned_df, config):
     # so let's set up some new, unique IDs.
     preprocessed_df['id'] = preprocessed_df.index
     preprocessed_df.set_index(np.arange(len(preprocessed_df)), inplace=True)
+
+    # This flag exists just to demonstrate you can modify the config
+    # during the user functions
+    config['data_preprocessed'] = True
 
     return preprocessed_df, config

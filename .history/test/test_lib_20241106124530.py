@@ -7,7 +7,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from outreach_dash_lib.dash_builder import DashBuilder
+from root_dash_lib.dash_builder import DashBuilder
 from .lib_for_tests import press_user_utils, grants_user_utils
 
 
@@ -431,7 +431,7 @@ class TestStreamlit(unittest.TestCase):
 
     def test_base_page(self):
 
-        import outreach_dash_lib.pages.base_page as base_page
+        import root_dash_lib.pages.base_page as base_page
 
         base_page.main(self.config_fp)
 
@@ -460,7 +460,7 @@ class TestStreamlitGrants(unittest.TestCase):
 
     def test_base_page(self):
 
-        import outreach_dash_lib.pages.base_page as base_page
+        import root_dash_lib.pages.base_page as base_page
 
         base_page.main(self.config_fp, grants_user_utils)
 

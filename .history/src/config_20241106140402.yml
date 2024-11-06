@@ -41,7 +41,7 @@ groupings:
 # The anything that's in a given grouping can be analyzed similarly.
 primary_id_column: Year
 id_columns: # Unique identifiers
-  - id
+  - Year
 numerical_columns: # Numeric columns that can be summed
   - Grads
   - Postdoc
@@ -51,16 +51,7 @@ date_columns: # Dates
   - Date
 x_columns: # Data will be binned by these along the x-axis
   - Year # For example, a value of 2019 would be grouped into the 2019-2020 financial year
-categorical_columns: # Categorical columns that can be grouped, e.g. all Press Types=="Science" articles
-  - Grads
-  - Postdoc
-  - Faculty
-  - Staff
-text_columns: # Text columns that can be searched
-  - Grads
-  - Postdoc
-  - Faculty
-  - Staff
+
 
 ## Custom Categories
 # Use boolean logic to define categories.

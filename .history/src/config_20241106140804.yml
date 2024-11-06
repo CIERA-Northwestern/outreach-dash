@@ -41,7 +41,7 @@ groupings:
 # The anything that's in a given grouping can be analyzed similarly.
 primary_id_column: Year
 id_columns: # Unique identifiers
-  - id
+  - Grads
 numerical_columns: # Numeric columns that can be summed
   - Grads
   - Postdoc

@@ -33,20 +33,20 @@ combined_filename: press.csv
 # What to group by
 # If you add additional categorical columns to the data, you can specify them here and they will be added to the dashboard.
 groupings:
-  - Research Topics
-  - Press Types
-  - Categories
+  - Year
+  - Grads
+  - Postdoc
+  - Faculty
+  - Staff
 
 ## Column Classifications
 # The anything that's in a given grouping can be analyzed similarly.
 primary_id_column: Year
 id_columns: # Unique identifiers
-  - id
+  - Year
 numerical_columns: # Numeric columns that can be summed
-  - Grads
-  - Postdoc
-  - Faculty
-  - Staff
+  - Press Mentions
+  - People Reached
 date_columns: # Dates
   - Date
 x_columns: # Data will be binned by these along the x-axis
@@ -56,14 +56,3 @@ categorical_columns: # Categorical columns that can be grouped, e.g. all Press T
   - Postdoc
   - Faculty
   - Staff
-text_columns: # Text columns that can be searched
-  - Grads
-  - Postdoc
-  - Faculty
-  - Staff
-
-## Custom Categories
-# Use boolean logic to define categories.
-# In addition to boolean logic, preceeding the definition with 'only' will restrict the category to only the tags that show up in the proceeding definition.
-# Any categories not defined here will be left as is if they are the sole tag, or added to an 'Other' category if they are one of multiple tags.
-

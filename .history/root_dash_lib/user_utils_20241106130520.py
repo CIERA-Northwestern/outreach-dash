@@ -7,10 +7,12 @@ import glob
 import numpy as np
 import pandas as pd
 
-from outreach_dash_lib import utils
+from root_dash_lib import utils
 
 
 def load_data(config):
+
+    # adding a comment to test pushing
     '''Modify this!
     
     This is the main function for loading the data
@@ -31,46 +33,50 @@ def load_data(config):
     ##########################################################################
     # Filepaths
 
-    input_dir = os.path.join(config['data_dir'], config['input_dirname'])
+    # input_dir = os.path.join(config['data_dir'], config['input_dirname'])
 
-    def get_fp_of_most_recent_file(pattern):
-        '''Get the filepath of the most-recently created file matching
-        the pattern. We just define this here because we use it twice.
+    # def get_fp_of_most_recent_file(pattern):
+    #     '''Get the filepath of the most-recently created file matching
+    #     the pattern. We just define this here because we use it twice.
 
-        Args:
-            pattern (str): The pattern to match.
+    #     Args:
+    #         pattern (str): The pattern to match.
 
-        Returns:
-            fp (str): The filepath of the most-recently created file
-                matching the pattern.
+    #     Returns:
+    #         fp (str): The filepath of the most-recently created file
+    #             matching the pattern.
         '''
-        fps = glob.glob(pattern)
-        ind_selected = np.argmax([os.path.getctime(_) for _ in fps])
-        return fps[ind_selected]
+    #     fps = glob.glob(pattern)
+    #     ind_selected = np.argmax([os.path.getctime(_) for _ in fps])
+    #     return fps[ind_selected]
 
-    data_pattern = os.path.join(input_dir, config['website_data_file_pattern'])
-    data_fp = get_fp_of_most_recent_file(data_pattern)
+    # data_pattern = os.path.join(input_dir, config['website_data_file_pattern'])
+    # data_fp = get_fp_of_most_recent_file(data_pattern)
 
-    press_office_pattern = os.path.join(
-        input_dir, config['press_office_data_file_pattern']
-    )
-    press_office_data_fp = get_fp_of_most_recent_file(press_office_pattern)
+    # press_office_pattern = os.path.join(
+    #     input_dir, config['press_office_data_file_pattern']
+    # )
+    # press_office_data_fp = get_fp_of_most_recent_file(press_office_pattern)
 
     ##########################################################################
     # Load data
 
     # Website data
-    website_df = pd.read_csv(data_fp, parse_dates=['Date',])
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    website_df = pd.read_csv('report.csv')
     website_df.set_index('id', inplace=True)
+    return website_df, config
+    # website_df = pd.read_csv(data_fp, parse_dates=['Date',])
+    # website_df.set_index('id', inplace=True)
 
-    # Load press data
-    press_df = pd.read_excel(press_office_data_fp)
-    press_df.set_index('id', inplace=True)
+    # # Load press data
+    # press_df = pd.read_excel(press_office_data_fp)
+    # press_df.set_index('id', inplace=True)
 
-    # Combine the data
-    raw_df = website_df.join(press_df)
+    # # Combine the data
+    # raw_df = website_df.join(press_df)
 
-    return raw_df, config
+    # return raw_df, config
 
 
 def clean_data(raw_df, config):
@@ -141,8 +147,6 @@ def preprocess_data(cleaned_df, config):
 
     preprocessed_df = cleaned_df.copy()
 
-    config['page_title'] = 'Modified Page Title'
-
     # Get the year, according to the config start date
     preprocessed_df['Year'] = utils.get_year(
         preprocessed_df['Date'], config['start_of_year']
@@ -163,5 +167,9 @@ def preprocess_data(cleaned_df, config):
     # so let's set up some new, unique IDs.
     preprocessed_df['id'] = preprocessed_df.index
     preprocessed_df.set_index(np.arange(len(preprocessed_df)), inplace=True)
+
+    # This flag exists just to demonstrate you can modify the config
+    # during the user functions
+    config['data_preprocessed'] = True
 
     return preprocessed_df, config

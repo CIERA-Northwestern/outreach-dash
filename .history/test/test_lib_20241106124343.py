@@ -7,7 +7,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from outreach_dash_lib.dash_builder import DashBuilder
+from root_dash_lib.dash_builder import DashBuilder
 from .lib_for_tests import press_user_utils, grants_user_utils
 
 
@@ -115,6 +115,8 @@ class TestPrepData(unittest.TestCase):
         assert builder_val_after == agg_val_after
 
 
+
+
 class TestRecategorize(unittest.TestCase):
 
     def setUp(self):
@@ -162,6 +164,44 @@ class TestRecategorize(unittest.TestCase):
         expected.set_index('id', inplace=True)
 
         pd.testing.assert_series_equal(expected['Press Types'], df)
+
+    def test_recategorize_data_per_grouping_realistic(self):
+
+        group_by = 'Research Topics'
+        cleaned_df = self.data['cleaned']
+        recategorized_df = self.builder.data_handler.recategorize_data_per_grouping(
+            self.data['preprocessed'],
+            group_by,
+            self.builder.config['new_categories'][group_by],
+            False,
+        )
+
+        # Check that compact objects is right
+        not_included_groups = [
+            'Stellar Dynamics & Stellar Populations',
+            'Exoplanets & The Solar System',
+            'Galaxies & Cosmology',
+            'N/A',
+       ]
+        for group in not_included_groups:
+            is_group = cleaned_df[group_by].str.contains(group)
+            is_compact = recategorized_df == 'Compact Objects'
+            assert (is_group.values & is_compact.values).sum() == 0
+
+        # Check that none of the singles categories shows up in other
+        for group in pd.unique(self.data['preprocessed'][group_by]):
+            is_group = cleaned_df[group_by] == group
+            is_other = recategorized_df == 'Other'
+            is_bad = (is_group.values & is_other.values)
+            n_matched = is_bad.sum()
+            # compare bad ids, good for debugging
+            if n_matched > 0:
+                bad_ids_original = cleaned_df.index[is_bad]
+                bad_ids_recategorized = recategorized_df.index[is_bad]
+                np.testing.assert_allclose(
+                    bad_ids_original, bad_ids_recategorized
+                )
+            assert n_matched == 0
 
     def test_recategorize_data(self):
 
@@ -431,7 +471,7 @@ class TestStreamlit(unittest.TestCase):
 
     def test_base_page(self):
 
-        import outreach_dash_lib.pages.base_page as base_page
+        import root_dash_lib.pages.base_page as base_page
 
         base_page.main(self.config_fp)
 
@@ -460,7 +500,7 @@ class TestStreamlitGrants(unittest.TestCase):
 
     def test_base_page(self):
 
-        import outreach_dash_lib.pages.base_page as base_page
+        import root_dash_lib.pages.base_page as base_page
 
         base_page.main(self.config_fp, grants_user_utils)
 
