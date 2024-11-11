@@ -117,7 +117,7 @@ It is still recommended you briefly skim through the previous sections, even if 
 ## Level 0: Using the Dashboard Online
 
 The dashboard has a plethora of features that can be interacted with via a web interface.
-If the dashboard is currently live at [<**streamlit app**>](https://root-dash.streamlit.app), you can use the dashboard without any additional effort.
+If the dashboard is currently live at [**outreach-dash**](https://outreach-dash.streamlit.app/), you can use the dashboard without any additional effort.
 One of the main features is the application of filters and the ability to download the edited data and images.
 While the interface should be relatively intuitive, a helpful tip is that you can reset your choices by refreshing the page.
 
